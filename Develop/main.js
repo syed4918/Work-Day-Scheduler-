@@ -1,14 +1,68 @@
-// time function
-var currtime = moment("10/6/2021 6:00 am", "MM/DD/YYYY hh:mm a");
-    var appttime = moment("10/6/2021 7:00 am", "MM/DD/YYYY hh:mm a");
-    var currtimeX = parseInt(currtime.format("x")) 
-    var appttimeX = parseInt(appttime.format("x"))
-    var currNewTime = moment("10/6/2021 6:36 am", "MM/DD/YYYY hh:mm a");
-    var currNewTimeX = parseInt(currNewTime.format("x"))
+console.log("Hello world");
 
-    if(appttimeX < currNewTime){
-    console.log("Don't have time..."); }
+var today = moment();
+$("#currentDay").text(today.format("dddd, MMM Do"));
 
-    else{
-    console.log("Still have time...");
-    console.log( (appttimeX - currNewTimeX) / 1000 / 60 / 60 + "hours");}
+// $("button").on("click", function (event) {
+//   saveTask();
+// });
+
+// need empty array for local storage to add input too
+var task = [];
+if (localStorage.getItem("task") != null) {
+  task = JSON.parse(localStorage.getItem("task"));
+  renderTask();
+}
+
+$("button").on("click", function (event) {
+  for (var i = 0; i < 24; i++) {
+    var taskInput = $("#activity-" + i).val();
+    // use val() not .value cause of jQuery
+    console.log(taskInput);
+    // task.push(taskInput);
+    // push adds a value to the end of the array, task[i] will replace the value in the array at index i
+    task[i] = taskInput
+    saveTask();
+  }
+});
+
+function saveTask() {
+    localStorage.setItem("task", JSON.stringify(task));
+  }
+
+// will need another for loop needed to keep value on page
+function renderTask(){
+    for (var i = 0; i < 24; i++) {
+        $("#activity-" + i).text(task[i])
+    } 
+}
+
+
+
+
+
+var CurrentTime = document.getElementsByTagName("h2");
+// get array of all h2 elements
+
+function timeColor() {
+  for (var i = 0; i < 24; i++) {
+    // var inputText = "activity-" + i;
+
+    // used parseInt to turn all data-time strings to integers to be compared with current time
+    var timeData = parseInt(CurrentTime[i].getAttribute("data-time"));
+
+    if (moment().format("k") > timeData) {
+      console.log("past");
+      $("#activity-" + i).addClass("past-time");
+    } else if (moment().format("k") < timeData) {
+      console.log("future");
+      $("#activity-" + i).addClass("future-time");
+    } else {
+      console.log("present");
+      $("#activity-" + i).addClass("present-time");
+    }
+  }
+}
+timeColor();
+
+// for loop to reduce html documentation?

@@ -1,68 +1,28 @@
-console.log("Hello world");
+//ensure that main.js in properly linked and moment is installed 
+console.log(moment().format('MMMM Do YYYY, h:mm:ss a'));
 
-var today = moment();
-$("#currentDay").text(today.format("dddd, MMM Do"));
+//display current day at the top of the calendar
+var date = moment();
+$("#currentDay").text(date.format("MMM Do, YYYY"));
 
-// $("button").on("click", function (event) {
-//   saveTask();
-// });
-
-// need empty array for local storage to add input too
-var task = [];
-if (localStorage.getItem("task") != null) {
-  task = JSON.parse(localStorage.getItem("task"));
-  renderTask();
-}
-
-$("button").on("click", function (event) {
-  for (var i = 0; i < 24; i++) {
-    var taskInput = $("#activity-" + i).val();
-    // use val() not .value cause of jQuery
-    console.log(taskInput);
-    // task.push(taskInput);
-    // push adds a value to the end of the array, task[i] will replace the value in the array at index i
-    task[i] = taskInput
-    saveTask();
-  }
-});
-
-function saveTask() {
-    localStorage.setItem("task", JSON.stringify(task));
-  }
-
-// will need another for loop needed to keep value on page
-function renderTask(){
-    for (var i = 0; i < 24; i++) {
-        $("#activity-" + i).text(task[i])
-    } 
-}
+// past, present. future times 
 
 
+// save timeblock content to local storage 
+
+// get the task that needs to be saved 
+var getValue = $(".saveBtn").siblings(".form-control").val();
+console.log(getValue); // ensures getValue returns a response the console
 
 
+// add click function to save button 
+$(".saveBtn" ).click(function() {
+    var getValue = $(this).siblings(".form-control").val();
+    console.log(getValue); // ensures getValue returns a response the console
 
-var CurrentTime = document.getElementsByTagName("h2");
-// get array of all h2 elements
+    // save task to local storage
+    // get local storage updated with task
+    // set local storage with task
+  });
 
-function timeColor() {
-  for (var i = 0; i < 24; i++) {
-    // var inputText = "activity-" + i;
-
-    // used parseInt to turn all data-time strings to integers to be compared with current time
-    var timeData = parseInt(CurrentTime[i].getAttribute("data-time"));
-
-    if (moment().format("k") > timeData) {
-      console.log("past");
-      $("#activity-" + i).addClass("past-time");
-    } else if (moment().format("k") < timeData) {
-      console.log("future");
-      $("#activity-" + i).addClass("future-time");
-    } else {
-      console.log("present");
-      $("#activity-" + i).addClass("present-time");
-    }
-  }
-}
-timeColor();
-
-// for loop to reduce html documentation?
+// AND the information persists on page reload 

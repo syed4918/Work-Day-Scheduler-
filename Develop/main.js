@@ -19,20 +19,31 @@ $(".saveBtn").click(function () {
 
     // local storage function (happens when save button is clicked)
 
-    // store task in local storage and convert JS into a string
-    localStorage.setItem("setValue", JSON.stringify(setValue));
-
-    // AND the information persists on page reload 
-    function renderTask() {
-        // get local storage updated with task and convert text into JS object
-        var renderTask = JSON.parse(localStorage.getItem("setValue"));
-        if (renderTask !== null) {
-            $(".saveBtn").siblings(".form-control").val();   
-        } else {
-            return;
-        }
+    // store task in local storage and convert JS into a string for EACH timeblock
+    for (var i = 0; i < 8 ; i++) {
+    var savedTask = localStorage.setItem(i, setValue);
+    
     }
+
 })
+
+
+// AND the information persists on page reload 
+function renderTask() {
+
+    // get local storage updated with tasks and convert text into JS object
+    var renderTask = JSON.parse(localStorage.getItem("1"));
+    $("").val(renderTask);
+
+    if (renderTask !== null) {
+        // select each individual timeblock and       
+    } else {
+        return;
+    }
+}
+
+renderTask();
+
 
 
 

@@ -7,22 +7,33 @@ $("#currentDay").text(date.format("MMM Do, YYYY"));
 
 // past, present. future times 
 
-
-// save timeblock content to local storage 
-
 // get the task that needs to be saved 
-var getValue = $(".saveBtn").siblings(".form-control").val();
-console.log(getValue); // ensures getValue returns a response the console
+var setValue = $(".saveBtn").siblings(".form-control").val();
+console.log(setValue); // ensure setValue has a valid output
+
+// when save button is clicked
+$(".saveBtn").click(function () {
+    // get respective text and show in console
+    var setValue = $(this).siblings(".form-control").val();
+    console.log(setValue);
+
+    // local storage function (happens when save button is clicked)
+
+    // store task in local storage and convert JS into a string
+    localStorage.setItem("setValue", JSON.stringify(setValue));
+
+    // AND the information persists on page reload 
+    function renderTask() {
+        // get local storage updated with task and convert text into JS object
+        var renderTask = JSON.parse(localStorage.getItem("setValue"));
+        if (renderTask !== null) {
+            $(".saveBtn").siblings(".form-control").val();   
+        } else {
+            return;
+        }
+    }
+})
 
 
-// add click function to save button 
-$(".saveBtn" ).click(function() {
-    var getValue = $(this).siblings(".form-control").val();
-    console.log(getValue); // ensures getValue returns a response the console
 
-    // save task to local storage
-    // get local storage updated with task
-    // set local storage with task
-  });
 
-// AND the information persists on page reload 
